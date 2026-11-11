@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "id": "tree-01",
+  "version": 1,
+  "model": "model.glb",
+  "instanced": true,
+  "collision": {
+    "type": "circle",
+    "radius": 0.4
+  },
+  "license": {
+    "author": "Da Nang World (placeholder tự tạo)",
+    "license": "CC0-1.0"
+  }
+}

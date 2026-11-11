@@ -25,7 +25,7 @@ Người chơi thật đi từ đăng nhập đến đi dạo trong bản đồ 
 - [ ] `onAuth` theo thứ tự 8.8: verify chữ ký/`iss`/`aud`/`exp`, `pv`, `SET ticket:{jti} NX EX 60` (Redis), đọc `users.status`, nhân vật, avatar từ DB (role `dnw_realtime`), kiểm tra zone `active`. Tên, avatar, userId lấy từ DB, không từ client.
 - [ ] Nạp `collision.json` và `surface.bin` thật từ CDN cho mọi chunk của zone; cache theo `(zone, mapVersion)` dùng chung giữa các room.
 - [ ] Spawn theo 8.10 (chọn `spawn_points`, lệch <= 1 m, kiểm tra không trong vật cản; khôi phục vị trí cũ chỉ khi hợp lệ).
-- [ ] Một phiên mỗi user: Redis `presence:user:{userId}`; phiên mới kick phiên cũ (mã 4003).
+- [ ] Một phiên mỗi user: Redis `presence:user:{userId}`; phiên mới kick phiên cũ (mã 4013).
 - [ ] Đăng ký kênh Redis `dnw:moderation` (kick/ban); đóng kết nối với mã ở 8.11.
 - [ ] Lưu `player_progress` khi rời và mỗi 60 giây.
 - [ ] Ghi/cập nhật `game_rooms` khi tạo/đóng room (số người cao nhất).
@@ -47,8 +47,8 @@ Người chơi thật đi từ đăng nhập đến đi dạo trong bản đồ 
 
 -   Playwright: hai người dùng thật đi qua đăng nhập, vào **cùng room**, thấy nhau di chuyển trên bản đồ thật, không đi xuyên nhà/nước.
 -   Ngắt mạng thì client hiển thị kết nối lại và vào lại được; quá hạn thì tự `join` lại và spawn an toàn.
--   Đăng nhập ở nơi khác: phiên cũ bị đóng với mã 4003.
--   Ticket dùng lần hai bị từ chối; ticket hết hạn bị từ chối; `pv` sai bị đóng 4004; tài khoản `suspended/banned` không vào được.
+-   Đăng nhập ở nơi khác: phiên cũ bị đóng với mã 4013.
+-   Ticket dùng lần hai bị từ chối; ticket hết hạn bị từ chối; `pv` sai bị đóng 4014; tài khoản `suspended/banned` không vào được.
 -   `players` trong state không chứa email/userId.
 -   Bộ nhớ client ổn định sau khi đi qua nhiều chunk (không rò).
 

@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "id": "__ID__",
+  "version": 1,
+  "model": "model.glb",
+  "instanced": true,
+  "collision": {
+    "type": "none"
+  },
+  "license": {
+    "author": "TODO",
+    "license": "CC0-1.0",
+    "sourceUrl": "TODO"
+  }
+}

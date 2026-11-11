@@ -1,0 +1,45 @@
+{
+  "name": "da-nang-world",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@12.18.0",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "pnpm --parallel --filter @dnw/web --filter @dnw/realtime dev",
+    "dev:web": "pnpm --filter @dnw/web dev",
+    "dev:realtime": "pnpm --filter @dnw/realtime dev",
+    "lint": "eslint . && prettier --check .",
+    "format": "prettier --write .",
+    "typecheck": "turbo run typecheck",
+    "test": "turbo run test",
+    "build": "turbo run build",
+    "e2e": "pnpm --filter @dnw/e2e test",
+    "loadtest": "pnpm --filter @dnw/realtime loadtest",
+    "db:generate": "pnpm --filter @dnw/db generate",
+    "db:migrate": "pnpm --filter @dnw/db migrate",
+    "db:seed": "pnpm --filter @dnw/db seed",
+    "admin:create": "pnpm --filter @dnw/db admin:create",
+    "content:new": "pnpm --filter @dnw/content-cli cli new",
+    "content:validate": "pnpm --filter @dnw/content-cli cli validate",
+    "content:build": "pnpm --filter @dnw/content-cli cli build",
+    "content:publish": "pnpm --filter @dnw/content-cli cli publish",
+    "content:sync": "pnpm --filter @dnw/content-cli cli sync",
+    "map:build": "pnpm --filter @dnw/map-pipeline cli build",
+    "map:publish": "pnpm --filter @dnw/map-pipeline cli publish",
+    "map:suggest-vehicle-spawns": "pnpm --filter @dnw/map-pipeline cli suggest-vehicle-spawns",
+    "i18n:check": "pnpm --filter @dnw/web i18n:check",
+    "content:credits": "pnpm --filter @dnw/content-cli cli credits",
+    "content:placeholders": "pnpm --filter @dnw/content-cli placeholders",
+    "map:download": "pnpm --filter @dnw/map-pipeline cli download"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.14.0",
+    "prettier": "^3.9.10",
+    "turbo": "^2.11.10",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.72.2"
+  }
+}

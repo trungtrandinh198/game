@@ -1,0 +1,13 @@
+packages:
+  - "apps/*"
+  - "packages/*"
+  - "tools/*"
+
+# esbuild (phụ thuộc của vitest) cần chạy postinstall để tải binary
+allowBuilds:
+  esbuild: true
+  # Tăng tốc msgpack tùy chọn của Colyseus; bản JS thuần vẫn chạy đúng
+  msgpackr-extract: false
+  # Phụ thuộc tùy chọn của next-intl/tailwind; có binary dựng sẵn nên không cần chạy script
+  "@swc/core": false
+  "@parcel/watcher": false

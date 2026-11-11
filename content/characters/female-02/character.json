@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "id": "female-02",
+  "version": 1,
+  "gender": "female",
+  "rig": "humanoid_v1",
+  "model": "model.glb",
+  "thumbnail": "thumbnail.webp",
+  "clips": {
+    "idle": "idle",
+    "walk": "walk",
+    "run": "run",
+    "ride_bicycle": "ride_bicycle",
+    "ride_motorbike": "ride_motorbike",
+    "sit_car": "sit_car"
+  },
+  "license": {
+    "author": "Da Nang World (placeholder tự tạo)",
+    "license": "CC0-1.0"
+  }
+}

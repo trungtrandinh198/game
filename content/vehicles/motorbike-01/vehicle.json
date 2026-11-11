@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "id": "motorbike-01",
+  "version": 1,
+  "kind": "motorbike",
+  "model": "model.glb",
+  "thumbnail": "thumbnail.webp",
+  "nodes": {
+    "wheels": ["wheel_front", "wheel_rear"],
+    "steer": "handlebar"
+  },
+  "seats": [
+    {
+      "id": "driver",
+      "socket": "seat_driver",
+      "pose": "ride_motorbike",
+      "hideRider": false,
+      "riderOffset": {
+        "position": [0, 0, 0],
+        "rotationY": 0
+      }
+    }
+  ],
+  "dimensions": {
+    "length": 1.9,
+    "width": 0.7,
+    "height": 1.1
+  },
+  "handling": {
+    "maxSpeed": 14,
+    "maxReverseSpeed": 2,
+    "acceleration": 5,
+    "brakeDecel": 9,
+    "drag": 0.15,
+    "wheelbase": 1.3,
+    "maxSteerDeg": 32,
+    "highSpeedSteerFactor": 0.35
+  },
+  "surfaceSpeedFactor": {
+    "road": 1,
+    "pedestrian": 0.6,
+    "ground": 0.45
+  },
+  "license": {
+    "author": "Da Nang World (placeholder tự tạo)",
+    "license": "CC0-1.0"
+  }
+}

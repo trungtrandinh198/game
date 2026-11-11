@@ -1,0 +1,10 @@
+node_modules
+dist
+.next
+.turbo
+coverage
+pnpm-lock.yaml
+da-nang-world-analysis-design-plan.md
+tasks
+packages/db/migrations
+docs/api/openapi.json

@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "code": "sample-monument",
+  "version": 1,
+  "zone": "han-river-core",
+  "category": "park",
+  "location": {
+    "lon": 108.227566,
+    "lat": 16.0617466
+  },
+  "interactionRadiusM": 25,
+  "rotationY": 0,
+  "scale": 1,
+  "model": "model.glb",
+  "lods": [],
+  "replacesOsmBuildings": [],
+  "cover": "media/cover.webp",
+  "license": {
+    "author": "Da Nang World (placeholder tự tạo)",
+    "license": "CC0-1.0"
+  }
+}

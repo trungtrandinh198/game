@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "id": "humanoid_v1",
+  "bones": [
+    "hips",
+    "spine",
+    "chest",
+    "neck",
+    "head",
+    "shoulder_l",
+    "upper_arm_l",
+    "forearm_l",
+    "hand_l",
+    "shoulder_r",
+    "upper_arm_r",
+    "forearm_r",
+    "hand_r",
+    "thigh_l",
+    "shin_l",
+    "foot_l",
+    "thigh_r",
+    "shin_r",
+    "foot_r"
+  ],
+  "requiredClips": ["idle", "walk", "run", "ride_bicycle", "ride_motorbike", "sit_car"],
+  "maxBones": 65
+}

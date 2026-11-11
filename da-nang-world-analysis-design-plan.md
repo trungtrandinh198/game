@@ -494,7 +494,7 @@ trí nhớ.
   UI state         Zustand                                   Trạng thái menu, cài đặt, panel địa danh
   3D               three + @react-three/fiber + drei         Render thế giới, nhân vật
   Texture/model    KTX2Loader, MeshoptDecoder, GLTFLoader    Nạp GLB nén
-  Realtime client  colyseus.js                               Kết nối room
+  Realtime client  @colyseus/sdk (0.18)                    Kết nối room
   Joystick mobile  Tự viết bằng Pointer Events               Tránh phụ thuộc thư viện không cần thiết
   Profiling dev    r3f-perf hoặc stats-gl                    Overlay FPS/draw call khi dev
 
@@ -511,8 +511,8 @@ Quy tắc game client:
 
   Hạng mục          Lựa chọn                                Ghi chú
   ----------------- --------------------------------------- ----------------------------------
-  Framework         Colyseus (0.16 trở lên)                 Room, matchmaking, state sync
-  State sync        @colyseus/schema                        Delta patch, khai báo bằng decorator
+  Framework         Colyseus 0.18 (@colyseus/core)          Room, matchmaking, state sync; không dùng meta-package `colyseus` (kéo uWebSockets.js từ git, bị pnpm chặn)
+  State sync        @colyseus/schema 5                      Delta patch, khai báo bằng `schema()` và `t.*`
   Transport         WebSocket (ws transport)                Qua reverse proxy có hỗ trợ upgrade
   Test              @colyseus/testing, @colyseus/loadtest   Test room và tải bot
   Redis client      ioredis                                 Pub/sub, ticket một lần, presence
@@ -585,7 +585,7 @@ chỉnh (`drizzle-kit generate --custom`).
   ------------ ------------------------------------- ------------------------------------
   Lỗi          Sentry (web, api, realtime)           Có source map cho web
   Log          pino ra stdout                        Thu thập bằng Docker logging driver
-  Metrics      prom-client, endpoint `/metrics` nội bộ Không công khai ra Internet
+  Metrics      @prometheus-io/client (thay prom-client), endpoint `/metrics` nội bộ Không công khai ra Internet
   Uptime       Uptime Kuma hoặc dịch vụ tương đương  Kiểm tra `/healthz` của từng service
 
 #### Xác thực
@@ -1751,7 +1751,7 @@ DOM, three, colyseus) để chạy giống nhau ở client và server.
     `POST /world/join` để nhận ticket mới và spawn lại an toàn.
 -   Một phiên mỗi user: Redis `presence:user:{userId}` lưu `roomId` và
     `sessionId`. Join mới khi đã có phiên cũ thì phát lệnh kick phiên cũ
-    (mã 4003) rồi chấp nhận phiên mới.
+    (mã 4013) rồi chấp nhận phiên mới.
 -   Kick/ban từ admin: API đăng sự kiện lên kênh Redis `dnw:moderation`
     (`{ type, userId, reason }`); realtime đăng ký kênh, ngắt kết nối
     người chơi đang online và từ chối join mới nhờ kiểm tra
@@ -1760,17 +1760,21 @@ DOM, three, colyseus) để chạy giống nhau ở client và server.
 
 | Mã | Ý nghĩa |
 |---|---|
-| 4001 | Bị kick |
-| 4002 | Tài khoản bị khóa hoặc ban |
-| 4003 | Đăng nhập ở nơi khác |
-| 4004 | Sai `PROTOCOL_VERSION` |
-| 4005 | Vi phạm rate limit |
-| 4006 | Server đang bảo trì/tắt |
+| 4011 | Bị kick |
+| 4012 | Tài khoản bị khóa hoặc ban |
+| 4013 | Đăng nhập ở nơi khác |
+| 4014 | Sai `PROTOCOL_VERSION` |
+| 4015 | Vi phạm rate limit |
+| 4016 | Server đang bảo trì/tắt |
+
+Colyseus 0.18 giữ mã 4000--4010 (ví dụ 4001 = tắt server graceful, 4002 = lỗi), mã
+ứng dụng phải từ 4011. Bảng giá trị nằm trong `packages/game-config`
+(`CLOSE_CODES`).
 
 ## 8.12. Giới hạn tốc độ và chỉ số
 
 -   Input vượt 40 message/giây: bỏ phần dư. Vượt 100/giây kéo dài: kick
-    4005. 10 message sai schema trong 10 giây: kick 4005.
+    4015. 10 message sai schema trong 10 giây: kick 4015.
 -   Số kết nối mới mỗi IP: giới hạn ở reverse proxy và bằng Redis.
 -   Chỉ số Prometheus: `dnw_rooms`, `dnw_players`,
     `dnw_tick_duration_ms` (histogram), `dnw_dropped_inputs_total`,
@@ -2517,7 +2521,7 @@ host riêng (`cdn.{$DOMAIN}`), chỉ đọc công khai với tiền tố asset.
     (7.13) nên image cũ vẫn tương thích schema mới.
 -   `/healthz` (sống) và `/readyz` (kiểm tra DB và Redis) cho mọi service.
     Realtime nhận SIGTERM thì ngừng nhận người chơi mới, gửi `notice` và
-    đóng kết nối với mã 4006 sau khỏi thời gian chờ (`stop_grace_period`
+    đóng kết nối với mã 4016 sau khỏi thời gian chờ (`stop_grace_period`
     45 s).
 
 ## 14.10. Kích cỡ hạ tầng ban đầu (ước lượng, phải đo lại)
@@ -3460,7 +3464,7 @@ sandbox nạp được chunk thật.
 
 **Hoàn thành khi:** e2e hai người dùng đi qua luồng đăng nhập thật vào
 cùng room; mất mạng thì kết nối lại; đăng nhập chỗ khác thì phiên cũ bị
-kick (4003); `players` không chứa dữ liệu nhạy cảm.
+kick (4013); `players` không chứa dữ liệu nhạy cảm.
 
 ### WP-11 -- Phương tiện (L)
 

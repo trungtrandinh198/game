@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "id": "__ID__",
+  "version": 1,
+  "gender": "male",
+  "rig": "humanoid_v1",
+  "model": "model.glb",
+  "thumbnail": "thumbnail.webp",
+  "clips": {
+    "idle": "idle",
+    "walk": "walk",
+    "run": "run",
+    "ride_bicycle": "ride_bicycle",
+    "ride_motorbike": "ride_motorbike",
+    "sit_car": "sit_car"
+  },
+  "license": {
+    "author": "TODO",
+    "license": "CC0-1.0",
+    "sourceUrl": "TODO"
+  }
+}

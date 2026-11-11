@@ -17,7 +17,7 @@ Hai trình duyệt thấy nhau và thấy xe của nhau; server là nguồn sự
 
 ### `apps/realtime`
 
-- [ ] Khởi tạo Colyseus (đọc tài liệu đúng phiên bản đã cài), `main.ts` với `/healthz`, `/metrics`, tắt êm khi nhận SIGTERM (mã đóng 4006).
+- [ ] Khởi tạo Colyseus (đọc tài liệu đúng phiên bản đã cài), `main.ts` với `/healthz`, `/metrics`, tắt êm khi nhận SIGTERM (mã đóng 4016; Colyseus giữ 4000--4010).
 - [ ] `state/`: `PlayerState`, `VehicleState`, `CityState` đúng 8.6.
 - [ ] `rooms/CityRoom.ts`: `filterBy ['zoneCode']`, `ROOM_CAPACITY`, simulation 20 Hz, patch 20 Hz, seat reservation 15 s, `allowReconnection` 20 s.
 - [ ] Xử lý message với zod (schema ở `packages/schemas`): `input`, `drive`, `mount`, `dismount` (8.7); hàng đợi input tối đa 8, giữ input cuối 250 ms, giới hạn 40 msg/giây, kích thước payload 1 KB.

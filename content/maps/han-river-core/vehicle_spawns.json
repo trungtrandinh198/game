@@ -1,0 +1,325 @@
+{
+  "schemaVersion": 1,
+  "spawns": [
+    {
+      "id": "vs-001",
+      "vehicle": "motorbike-01",
+      "lon": 108.2224098,
+      "lat": 16.0652626,
+      "headingDeg": 6,
+      "respawnSeconds": 120
+    },
+    {
+      "id": "vs-002",
+      "vehicle": "motorbike-01",
+      "lon": 108.2224506,
+      "lat": 16.0656579,
+      "headingDeg": 6,
+      "respawnSeconds": 120
+    },
+    {
+      "id": "vs-003",
+      "vehicle": "car-01",
+      "lon": 108.2228188,
+      "lat": 16.0626451,
+      "headingDeg": 97,
+      "respawnSeconds": 120
+    },
+    {
+      "id": "vs-004",
+      "vehicle": "car-01",
+      "lon": 108.2302927,
+      "lat": 16.0658349,
+      "headingDeg": 167,
+      "respawnSeconds": 120
+    },
+    {
+      "id": "vs-005",
+      "vehicle": "bicycle-01",
+      "lon": 108.2305153,
+      "lat": 16.064846,
+      "headingDeg": 173,
+      "respawnSeconds": 120
+    },
+    {
+      "id": "vs-006",
+      "vehicle": "bicycle-01",
+      "lon": 108.2305978,
+      "lat": 16.0642224,
+      "headingDeg": 174,
+      "respawnSeconds": 120
+    },
+    {
+      "id": "vs-007",
+      "vehicle": "motorbike-01",
+      "lon": 108.2306977,
+      "lat": 16.0633496,
+      "headingDeg": 176,
+      "respawnSeconds": 120
+    },
+    {
+      "id": "vs-008",
+      "vehicle": "bicycle-01",
+      "lon": 108.230731,
+      "lat": 16.0629898,
+      "headingDeg": 176,
+      "respawnSeconds": 120
+    },
+    {
+      "id": "vs-009",
+      "vehicle": "bicycle-01",
+      "lon": 108.2309988,
+      "lat": 16.0626538,
+      "headingDeg": 87,
+      "respawnSeconds": 120
+    },
+    {
+      "id": "vs-010",
+      "vehicle": "motorbike-01",
+      "lon": 108.2310312,
+      "lat": 16.0651242,
+      "headingDeg": 72,
+      "respawnSeconds": 120
+    },
+    {
+      "id": "vs-011",
+      "vehicle": "motorbike-01",
+      "lon": 108.2314547,
+      "lat": 16.0652595,
+      "headingDeg": 73,
+      "respawnSeconds": 120
+    },
+    {
+      "id": "vs-012",
+      "vehicle": "motorbike-01",
+      "lon": 108.2318093,
+      "lat": 16.0647488,
+      "headingDeg": 253,
+      "respawnSeconds": 120
+    },
+    {
+      "id": "vs-013",
+      "vehicle": "motorbike-01",
+      "lon": 108.2317247,
+      "lat": 16.0638763,
+      "headingDeg": 74,
+      "respawnSeconds": 120
+    },
+    {
+      "id": "vs-014",
+      "vehicle": "bicycle-01",
+      "lon": 108.2229303,
+      "lat": 16.0565633,
+      "headingDeg": 8,
+      "respawnSeconds": 120
+    },
+    {
+      "id": "vs-015",
+      "vehicle": "car-01",
+      "lon": 108.2230104,
+      "lat": 16.0570219,
+      "headingDeg": 16,
+      "respawnSeconds": 120
+    },
+    {
+      "id": "vs-016",
+      "vehicle": "motorbike-01",
+      "lon": 108.2237929,
+      "lat": 16.0606338,
+      "headingDeg": 179,
+      "respawnSeconds": 120
+    },
+    {
+      "id": "vs-017",
+      "vehicle": "car-01",
+      "lon": 108.2308894,
+      "lat": 16.0607464,
+      "headingDeg": 176,
+      "respawnSeconds": 120
+    },
+    {
+      "id": "vs-018",
+      "vehicle": "motorbike-01",
+      "lon": 108.2225687,
+      "lat": 16.0609329,
+      "headingDeg": 90,
+      "respawnSeconds": 120
+    },
+    {
+      "id": "vs-019",
+      "vehicle": "motorbike-01",
+      "lon": 108.2319301,
+      "lat": 16.0635292,
+      "headingDeg": 73,
+      "respawnSeconds": 120
+    },
+    {
+      "id": "vs-020",
+      "vehicle": "motorbike-01",
+      "lon": 108.231151,
+      "lat": 16.0657017,
+      "headingDeg": 163,
+      "respawnSeconds": 120
+    },
+    {
+      "id": "vs-021",
+      "vehicle": "bicycle-01",
+      "lon": 108.2315002,
+      "lat": 16.0643539,
+      "headingDeg": 173,
+      "respawnSeconds": 120
+    },
+    {
+      "id": "vs-022",
+      "vehicle": "car-01",
+      "lon": 108.2316948,
+      "lat": 16.0630441,
+      "headingDeg": 172,
+      "respawnSeconds": 120
+    },
+    {
+      "id": "vs-023",
+      "vehicle": "motorbike-01",
+      "lon": 108.2317855,
+      "lat": 16.0625363,
+      "headingDeg": 169,
+      "respawnSeconds": 120
+    },
+    {
+      "id": "vs-024",
+      "vehicle": "bicycle-01",
+      "lon": 108.2305178,
+      "lat": 16.0608509,
+      "headingDeg": 88,
+      "respawnSeconds": 120
+    },
+    {
+      "id": "vs-025",
+      "vehicle": "car-01",
+      "lon": 108.2230529,
+      "lat": 16.0615677,
+      "headingDeg": 243,
+      "respawnSeconds": 120
+    },
+    {
+      "id": "vs-026",
+      "vehicle": "motorbike-01",
+      "lon": 108.223027,
+      "lat": 16.0585626,
+      "headingDeg": 32,
+      "respawnSeconds": 120
+    },
+    {
+      "id": "vs-027",
+      "vehicle": "motorbike-01",
+      "lon": 108.223252,
+      "lat": 16.0589191,
+      "headingDeg": 33,
+      "respawnSeconds": 120
+    },
+    {
+      "id": "vs-028",
+      "vehicle": "car-01",
+      "lon": 108.2234493,
+      "lat": 16.0592258,
+      "headingDeg": 33,
+      "respawnSeconds": 120
+    },
+    {
+      "id": "vs-029",
+      "vehicle": "car-01",
+      "lon": 108.2308948,
+      "lat": 16.0587321,
+      "headingDeg": 87,
+      "respawnSeconds": 120
+    },
+    {
+      "id": "vs-030",
+      "vehicle": "motorbike-01",
+      "lon": 108.2319928,
+      "lat": 16.0587599,
+      "headingDeg": 88,
+      "respawnSeconds": 120
+    },
+    {
+      "id": "vs-031",
+      "vehicle": "motorbike-01",
+      "lon": 108.2238859,
+      "lat": 16.0649147,
+      "headingDeg": 272,
+      "respawnSeconds": 120
+    },
+    {
+      "id": "vs-032",
+      "vehicle": "motorbike-01",
+      "lon": 108.2236633,
+      "lat": 16.0599211,
+      "headingDeg": 208,
+      "respawnSeconds": 120
+    },
+    {
+      "id": "vs-033",
+      "vehicle": "motorbike-01",
+      "lon": 108.2227091,
+      "lat": 16.0582642,
+      "headingDeg": 208,
+      "respawnSeconds": 120
+    },
+    {
+      "id": "vs-034",
+      "vehicle": "car-01",
+      "lon": 108.2307181,
+      "lat": 16.0577816,
+      "headingDeg": 354,
+      "respawnSeconds": 120
+    },
+    {
+      "id": "vs-035",
+      "vehicle": "motorbike-01",
+      "lon": 108.2306752,
+      "lat": 16.0581405,
+      "headingDeg": 354,
+      "respawnSeconds": 120
+    },
+    {
+      "id": "vs-036",
+      "vehicle": "bicycle-01",
+      "lon": 108.2310411,
+      "lat": 16.064357,
+      "headingDeg": 175,
+      "respawnSeconds": 120
+    },
+    {
+      "id": "vs-037",
+      "vehicle": "bicycle-01",
+      "lon": 108.2310769,
+      "lat": 16.0639974,
+      "headingDeg": 175,
+      "respawnSeconds": 120
+    },
+    {
+      "id": "vs-038",
+      "vehicle": "motorbike-01",
+      "lon": 108.2311127,
+      "lat": 16.0636378,
+      "headingDeg": 175,
+      "respawnSeconds": 120
+    },
+    {
+      "id": "vs-039",
+      "vehicle": "bicycle-01",
+      "lon": 108.2238103,
+      "lat": 16.0637974,
+      "headingDeg": 277,
+      "respawnSeconds": 120
+    },
+    {
+      "id": "vs-040",
+      "vehicle": "motorbike-01",
+      "lon": 108.2307227,
+      "lat": 16.0568132,
+      "headingDeg": 350,
+      "respawnSeconds": 120
+    }
+  ]
+}

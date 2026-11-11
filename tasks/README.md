@@ -96,16 +96,16 @@ Nếu gặp tình huống cần dừng và hỏi (mục 18.1), dừng và hỏi.
 
 ## Theo dõi tiến độ
 
-- [ ] T01 Khởi tạo repo
-- [ ] T02 Prototype 3D client + game-core
-- [ ] T03 Prototype multiplayer
-- [ ] T04 Cổng G1
-- [ ] T05 Gói database
-- [ ] T06 API nền tảng và xác thực
-- [ ] T07 Người chơi và nhân vật
-- [ ] T08 Hệ thống content
-- [ ] T09 Pipeline bản đồ
-- [ ] T10 Web shell và giao diện xác thực
+- [x] T01 Khởi tạo repo
+- [ ] T02 Prototype 3D client + game-core (code xong, test xanh, chạy tốt trên desktop; còn **đo trên điện thoại thật**, xem docs/architecture/benchmarks.md)
+- [x] T03 Prototype multiplayer (server, client dự đoán/nội suy, e2e 2 trình duyệt, loadtest đạt trên máy dev; còn đo lại qua mạng thật)
+- [ ] T04 Cổng G1 (công cụ `/dev/bench` + mẫu bảng + quy trình đã xong, test và e2e đạt; còn chờ người đo trên điện thoại và ký kết luận)
+- [x] T05 Gói database (Drizzle + 3 migration, seed idempotent, role/RLS, admin:create, 20 test; chạy thật trên Supabase qua session pooler)
+- [x] T06 API nền tảng + xác thực (39 integration test, OpenAPI, chạy với DB thật; Redis dùng kho trong bộ nhớ khi chưa cấu hình REDIS_URL)
+- [x] T07 Người chơi và nhân vật
+- [x] T08 Hệ thống content (schema manifest, content-cli: new/validate/build/publish/sync/credits, placeholder CC0; 33 test; sync chạy thật trên DB dev; publish S3 chưa chạy được vì chưa có MinIO/S3)
+- [x] T09 Pipeline bản đồ (OSM thật 4809 phần tử → 16 chunk 0.49 MB, test golden, API zone, viewer; người duyệt xác nhận bố cục; publish S3 chưa chạy được)
+- [x] T10 Web shell (Next 16 + next-intl vi/en, Tailwind, auth/character/profile/play/legal, i18n:check, 10 unit test + 4 e2e; chưa có xem trước 3D nhân vật)
 - [ ] T11 Tích hợp game
 - [ ] T12 Phương tiện
 - [ ] T13 Địa danh và nội dung song ngữ

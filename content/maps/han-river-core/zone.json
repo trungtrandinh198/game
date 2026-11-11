@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "code": "han-river-core",
+  "name": "Han River Core",
+  "origin": {
+    "lon": 108.2272,
+    "lat": 16.0612
+  },
+  "crs": "EPSG:32649",
+  "chunkSizeM": 256,
+  "boundary": "boundary.geojson"
+}

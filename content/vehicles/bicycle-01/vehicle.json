@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "id": "bicycle-01",
+  "version": 1,
+  "kind": "bicycle",
+  "model": "model.glb",
+  "thumbnail": "thumbnail.webp",
+  "nodes": {
+    "wheels": ["wheel_front", "wheel_rear"],
+    "steer": "handlebar"
+  },
+  "seats": [
+    {
+      "id": "driver",
+      "socket": "seat_driver",
+      "pose": "ride_bicycle",
+      "hideRider": false,
+      "riderOffset": {
+        "position": [0, 0, 0],
+        "rotationY": 0
+      }
+    }
+  ],
+  "dimensions": {
+    "length": 1.8,
+    "width": 0.6,
+    "height": 1.1
+  },
+  "handling": {
+    "maxSpeed": 5.5,
+    "maxReverseSpeed": 1,
+    "acceleration": 2,
+    "brakeDecel": 5,
+    "drag": 0.3,
+    "wheelbase": 1,
+    "maxSteerDeg": 40,
+    "highSpeedSteerFactor": 0.6
+  },
+  "surfaceSpeedFactor": {
+    "road": 1,
+    "pedestrian": 1,
+    "ground": 0.7
+  },
+  "license": {
+    "author": "Da Nang World (placeholder tự tạo)",
+    "license": "CC0-1.0"
+  }
+}

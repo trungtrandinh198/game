@@ -1,0 +1,178 @@
+{
+  "common": {
+    "appName": "Da Nang World",
+    "loading": "Loading...",
+    "save": "Save",
+    "saved": "Saved",
+    "back": "Back",
+    "retry": "Try again",
+    "continue": "Continue",
+    "login": "Log in",
+    "register": "Sign up",
+    "logout": "Log out",
+    "language": "Language",
+    "profile": "Profile",
+    "character": "Character",
+    "play": "Play",
+    "privacy": "Privacy",
+    "terms": "Terms",
+    "credits": "Credits"
+  },
+  "home": {
+    "title": "Explore Da Nang in a 3D world",
+    "subtitle": "Walk, cycle, ride a motorbike or drive a car along the Han River with other players, right in your browser.",
+    "cta": "Start exploring",
+    "ctaLoggedIn": "Continue playing",
+    "feature1": "Real map from OpenStreetMap",
+    "feature2": "Multiplayer",
+    "feature3": "Bicycles, motorbikes and cars to drive"
+  },
+  "auth": {
+    "email": "Email",
+    "password": "Password",
+    "displayName": "Display name",
+    "login": {
+      "title": "Log in",
+      "submit": "Log in",
+      "forgot": "Forgot your password?",
+      "noAccount": "No account yet?",
+      "goRegister": "Sign up"
+    },
+    "register": {
+      "title": "Create an account",
+      "submit": "Sign up",
+      "acceptTerms": "I agree to the terms of use and the privacy policy",
+      "hasAccount": "Already have an account?",
+      "sentTitle": "Check your email",
+      "sentBody": "If this address can be used, we sent you instructions. The email is valid for 24 hours."
+    },
+    "verify": {
+      "title": "Verify email",
+      "verifying": "Verifying...",
+      "success": "Your email is verified. You can log in now.",
+      "missingToken": "This verification link is not valid.",
+      "resendTitle": "Need a new link?",
+      "resend": "Resend verification email",
+      "resendSent": "If the account needs verification, a new email was sent."
+    },
+    "forgot": {
+      "title": "Forgot password",
+      "submit": "Send reset link",
+      "sent": "If the email exists, we sent a password reset link (valid for 1 hour)."
+    },
+    "reset": {
+      "title": "Set a new password",
+      "submit": "Change password",
+      "success": "Password changed. Please log in again.",
+      "missingToken": "This reset link is not valid."
+    }
+  },
+  "character": {
+    "title": "Choose your character",
+    "subtitle": "You can change your character at any time.",
+    "name": "Character name (optional)",
+    "male": "Male",
+    "female": "Female",
+    "choose": "Choose this character",
+    "selected": "In use",
+    "save": "Save and play",
+    "empty": "No characters are enabled yet. Please come back later.",
+    "color": "Shirt colour"
+  },
+  "profile": {
+    "title": "Profile and settings",
+    "country": "Country (2-letter code, e.g. VN)",
+    "bio": "About you (max 160 characters)",
+    "sensitivity": "Camera sensitivity",
+    "invertY": "Invert camera vertical axis",
+    "game": "In-game settings",
+    "account": "Account"
+  },
+  "play": {
+    "loadingZone": "Entering {zone}",
+    "preparing": "Getting ready...",
+    "noZone": "No area is open yet.",
+    "lostTitle": "Connection lost",
+    "lostBody": "Cannot reach the server. Check your network and try again.",
+    "ready": "Ready",
+    "help": "Help",
+    "stage": {
+      "map": "Loading the map...",
+      "avatars": "Loading characters...",
+      "join": "Requesting entry...",
+      "connect": "Connecting to the server...",
+      "chunks": "Building the area around you..."
+    },
+    "game": {
+      "mountPrompt": "F: get on {kind}",
+      "dismountPrompt": "F: get off",
+      "reconnecting": "Connection lost, reconnecting...",
+      "disconnected": "Disconnected",
+      "kinds": { "bicycle": "bicycle", "motorbike": "motorbike", "car": "car" },
+      "notices": {
+        "VEHICLE_TOO_FAR": "The vehicle is too far",
+        "VEHICLE_OCCUPIED": "The vehicle already has a driver",
+        "VEHICLE_NOT_FOUND": "Vehicle not found",
+        "VEHICLE_TOO_FAST": "The vehicle is still moving fast, slow down to get off",
+        "VEHICLE_NO_DISMOUNT_SPACE": "No room to get off here",
+        "VEHICLE_COOLDOWN": "Too fast, try again",
+        "NOT_ON_FOOT": "You are driving",
+        "NOT_DRIVING": "You are not in a vehicle"
+      }
+    },
+    "close": {
+      "4011": "You were removed from the room",
+      "4012": "Your account is suspended",
+      "4013": "Your account signed in somewhere else",
+      "4014": "Game version mismatch, please reload the page",
+      "4015": "Too much data sent, you were disconnected",
+      "4016": "The server is under maintenance"
+    }
+  },
+  "controls": {
+    "title": "How to play",
+    "move": "WASD or arrow keys: move",
+    "run": "Shift: run",
+    "camera": "Drag the mouse: rotate the camera",
+    "interact": "F: get on or off a vehicle",
+    "drive": "While driving: W/S throttle and brake, A/D steer, Space handbrake",
+    "touch": "Phone: left stick to walk, drag on the right to look, F button to get on/off a vehicle",
+    "dismiss": "Got it",
+    "dontShow": "Do not show again"
+  },
+  "legal": {
+    "privacyTitle": "Privacy policy",
+    "termsTitle": "Terms of use",
+    "creditsTitle": "Credits",
+    "placeholder": "Placeholder text; the official version will be added before public launch.",
+    "osm": "Map based on data © OpenStreetMap contributors (ODbL license)."
+  },
+  "validation": {
+    "required": "This field is required",
+    "email": "Invalid email",
+    "passwordMin": "Password must be 10 to 128 characters",
+    "passwordCommon": "That password is too common, choose another",
+    "nameInvalid": "3 to 32 characters: letters, digits, spaces, _ - .",
+    "terms": "You must accept the terms to continue"
+  },
+  "errors": {
+    "VALIDATION_ERROR": "Some input is not valid",
+    "UNAUTHENTICATED": "You need to log in",
+    "AUTH_INVALID_CREDENTIALS": "Wrong email or password",
+    "AUTH_EMAIL_NOT_VERIFIED": "Please verify your email before logging in",
+    "FORBIDDEN": "You are not allowed to do that",
+    "AUTH_ACCOUNT_SUSPENDED": "This account is suspended",
+    "CSRF_REJECTED": "Request rejected, please reload the page",
+    "NOT_FOUND": "Not found",
+    "CONFLICT_DISPLAY_NAME_TAKEN": "That display name is taken",
+    "CHARACTER_ALREADY_EXISTS": "You already have a character",
+    "CONFLICT": "The data conflicts with existing data",
+    "CHARACTER_REQUIRED": "Choose a character first",
+    "ZONE_UNAVAILABLE": "This area is not open yet",
+    "TOKEN_INVALID": "The link is invalid or has expired",
+    "PAYLOAD_TOO_LARGE": "The data is too large",
+    "RATE_LIMITED": "Too many attempts, please try again in a few minutes",
+    "INTERNAL_ERROR": "Something went wrong, please try again later",
+    "NETWORK": "Cannot reach the server"
+  }
+}

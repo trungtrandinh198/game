@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "code": "__ID__",
+  "version": 1,
+  "zone": "han-river-core",
+  "category": "street",
+  "location": {
+    "lon": 108.2272,
+    "lat": 16.0612
+  },
+  "interactionRadiusM": 25,
+  "rotationY": 0,
+  "scale": 1,
+  "model": "model.glb",
+  "lods": [],
+  "replacesOsmBuildings": [],
+  "license": {
+    "author": "TODO",
+    "license": "CC0-1.0",
+    "sourceUrl": "TODO"
+  }
+}

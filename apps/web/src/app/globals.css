@@ -1,0 +1,41 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #0b1220;
+  --panel: #111a2e;
+  --border: #25324d;
+  --text: #eaf0fb;
+  --muted: #9fb0cc;
+  --accent: #38bdf8;
+  --danger: #f87171;
+  --ok: #4ade80;
+}
+
+html,
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family:
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    sans-serif;
+  min-height: 100%;
+}
+
+/* Tránh vùng tai thỏ và thanh cử chỉ trên điện thoại */
+.safe-area {
+  padding-top: max(1rem, env(safe-area-inset-top));
+  padding-bottom: max(1rem, env(safe-area-inset-bottom));
+  padding-left: max(1rem, env(safe-area-inset-left));
+  padding-right: max(1rem, env(safe-area-inset-right));
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+a {
+  color: var(--accent);
+}

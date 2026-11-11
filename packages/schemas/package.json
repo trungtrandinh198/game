@@ -1,0 +1,23 @@
+{
+  "name": "@dnw/schemas",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "build": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@colyseus/schema": "^5.0.45",
+    "zod": "^4.0.0"
+  },
+  "devDependencies": {
+    "@dnw/config": "workspace:*",
+    "typescript": "^5.9.0",
+    "vitest": "^3.2.0"
+  }
+}

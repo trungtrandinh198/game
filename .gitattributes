@@ -1,0 +1,8 @@
+* text=auto eol=lf
+
+# Asset nhị phân trong content/ quản lý bằng Git LFS (cần cài git-lfs)
+content/**/*.glb filter=lfs diff=lfs merge=lfs -text
+content/**/*.ktx2 filter=lfs diff=lfs merge=lfs -text
+content/**/*.png filter=lfs diff=lfs merge=lfs -text
+content/**/*.jpg filter=lfs diff=lfs merge=lfs -text
+content/**/*.webp filter=lfs diff=lfs merge=lfs -text

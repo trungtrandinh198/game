@@ -1,0 +1,19 @@
+node_modules/
+dist/
+.next/
+.turbo/
+coverage/
+*.log
+.DS_Store
+
+# Bí mật và cấu hình cục bộ
+.env
+.env.*
+!.env.example
+
+# Dữ liệu OSM tải về và kết quả build content
+content/maps/*/raw/
+dist/content/
+
+playwright-report/
+test-results/

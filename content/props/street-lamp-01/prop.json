@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "id": "street-lamp-01",
+  "version": 1,
+  "model": "model.glb",
+  "instanced": true,
+  "collision": {
+    "type": "none"
+  },
+  "license": {
+    "author": "Da Nang World (placeholder tự tạo)",
+    "license": "CC0-1.0"
+  }
+}

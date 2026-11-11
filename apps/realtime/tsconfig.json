@@ -1,0 +1,9 @@
+{
+  "extends": "@dnw/config/tsconfig.base.json",
+  "compilerOptions": {
+    "lib": ["ES2023"],
+    "types": ["node"],
+    "noImplicitOverride": false
+  },
+  "include": ["src", "scripts", "vitest.config.ts"]
+}

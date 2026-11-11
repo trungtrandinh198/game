@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "code": "__ID__",
+  "name": "TODO",
+  "origin": {
+    "lon": 108.2272,
+    "lat": 16.0612
+  },
+  "crs": "EPSG:32649",
+  "chunkSizeM": 256,
+  "boundary": "boundary.geojson"
+}

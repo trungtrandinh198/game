@@ -1,0 +1,178 @@
+{
+  "common": {
+    "appName": "Da Nang World",
+    "loading": "Đang tải...",
+    "save": "Lưu",
+    "saved": "Đã lưu",
+    "back": "Quay lại",
+    "retry": "Thử lại",
+    "continue": "Tiếp tục",
+    "login": "Đăng nhập",
+    "register": "Đăng ký",
+    "logout": "Đăng xuất",
+    "language": "Ngôn ngữ",
+    "profile": "Hồ sơ",
+    "character": "Nhân vật",
+    "play": "Vào game",
+    "privacy": "Quyền riêng tư",
+    "terms": "Điều khoản",
+    "credits": "Ghi công"
+  },
+  "home": {
+    "title": "Khám phá Đà Nẵng trong thế giới 3D",
+    "subtitle": "Đi bộ, đạp xe, lái xe máy hay ô tô dọc sông Hàn cùng người chơi khác ngay trên trình duyệt.",
+    "cta": "Vào chơi",
+    "ctaLoggedIn": "Tiếp tục chơi",
+    "feature1": "Bản đồ thật từ OpenStreetMap",
+    "feature2": "Nhiều người chơi cùng lúc",
+    "feature3": "Xe đạp, xe máy và ô tô để lái"
+  },
+  "auth": {
+    "email": "Email",
+    "password": "Mật khẩu",
+    "displayName": "Tên hiển thị",
+    "login": {
+      "title": "Đăng nhập",
+      "submit": "Đăng nhập",
+      "forgot": "Quên mật khẩu?",
+      "noAccount": "Chưa có tài khoản?",
+      "goRegister": "Đăng ký"
+    },
+    "register": {
+      "title": "Tạo tài khoản",
+      "submit": "Đăng ký",
+      "acceptTerms": "Tôi đồng ý với điều khoản sử dụng và chính sách quyền riêng tư",
+      "hasAccount": "Đã có tài khoản?",
+      "sentTitle": "Kiểm tra email của bạn",
+      "sentBody": "Nếu địa chỉ này dùng được, chúng tôi đã gửi thư hướng dẫn. Thư có hiệu lực 24 giờ."
+    },
+    "verify": {
+      "title": "Xác minh email",
+      "verifying": "Đang xác minh...",
+      "success": "Email đã được xác minh. Bạn có thể đăng nhập.",
+      "missingToken": "Liên kết xác minh không hợp lệ.",
+      "resendTitle": "Cần liên kết mới?",
+      "resend": "Gửi lại thư xác minh",
+      "resendSent": "Nếu tài khoản cần xác minh, thư mới đã được gửi."
+    },
+    "forgot": {
+      "title": "Quên mật khẩu",
+      "submit": "Gửi liên kết đặt lại",
+      "sent": "Nếu email tồn tại, chúng tôi đã gửi liên kết đặt lại mật khẩu (hiệu lực 1 giờ)."
+    },
+    "reset": {
+      "title": "Đặt mật khẩu mới",
+      "submit": "Đổi mật khẩu",
+      "success": "Đã đổi mật khẩu. Hãy đăng nhập lại.",
+      "missingToken": "Liên kết đặt lại không hợp lệ."
+    }
+  },
+  "character": {
+    "title": "Chọn nhân vật",
+    "subtitle": "Bạn có thể đổi nhân vật bất cứ lúc nào.",
+    "name": "Tên nhân vật (tuỳ chọn)",
+    "male": "Nam",
+    "female": "Nữ",
+    "choose": "Chọn nhân vật này",
+    "selected": "Đang dùng",
+    "save": "Lưu và vào game",
+    "empty": "Chưa có nhân vật nào được bật. Hãy quay lại sau.",
+    "color": "Màu áo"
+  },
+  "profile": {
+    "title": "Hồ sơ và cài đặt",
+    "country": "Quốc gia (mã 2 chữ cái, ví dụ VN)",
+    "bio": "Giới thiệu (tối đa 160 ký tự)",
+    "sensitivity": "Độ nhạy camera",
+    "invertY": "Đảo trục dọc của camera",
+    "game": "Cài đặt trong game",
+    "account": "Tài khoản"
+  },
+  "play": {
+    "loadingZone": "Đang vào {zone}",
+    "preparing": "Đang chuẩn bị...",
+    "noZone": "Chưa có khu vực nào đang mở.",
+    "lostTitle": "Mất kết nối",
+    "lostBody": "Không thể kết nối tới máy chủ. Hãy kiểm tra mạng rồi thử lại.",
+    "ready": "Sẵn sàng",
+    "help": "Hướng dẫn",
+    "stage": {
+      "map": "Đang tải bản đồ...",
+      "avatars": "Đang tải nhân vật...",
+      "join": "Đang xin vào thế giới...",
+      "connect": "Đang kết nối máy chủ...",
+      "chunks": "Đang dựng khu vực quanh bạn..."
+    },
+    "game": {
+      "mountPrompt": "F: lên {kind}",
+      "dismountPrompt": "F: xuống xe",
+      "reconnecting": "Mất kết nối, đang kết nối lại...",
+      "disconnected": "Đã ngắt kết nối",
+      "kinds": { "bicycle": "xe đạp", "motorbike": "xe máy", "car": "ô tô" },
+      "notices": {
+        "VEHICLE_TOO_FAR": "Xe ở quá xa",
+        "VEHICLE_OCCUPIED": "Xe đã có người lái",
+        "VEHICLE_NOT_FOUND": "Không tìm thấy xe",
+        "VEHICLE_TOO_FAST": "Xe còn chạy nhanh, hãy giảm tốc để xuống",
+        "VEHICLE_NO_DISMOUNT_SPACE": "Không có chỗ để xuống xe",
+        "VEHICLE_COOLDOWN": "Thao tác quá nhanh",
+        "NOT_ON_FOOT": "Bạn đang lái xe",
+        "NOT_DRIVING": "Bạn không ở trên xe"
+      }
+    },
+    "close": {
+      "4011": "Bạn đã bị mời ra khỏi phòng",
+      "4012": "Tài khoản của bạn đang bị khóa",
+      "4013": "Tài khoản đang đăng nhập ở nơi khác",
+      "4014": "Phiên bản game không khớp, hãy tải lại trang",
+      "4015": "Gửi dữ liệu quá nhiều nên đã bị ngắt kết nối",
+      "4016": "Máy chủ đang bảo trì"
+    }
+  },
+  "controls": {
+    "title": "Cách điều khiển",
+    "move": "WASD hoặc mũi tên: di chuyển",
+    "run": "Shift: chạy",
+    "camera": "Kéo chuột: xoay camera",
+    "interact": "F: lên hoặc xuống xe",
+    "drive": "Khi lái: W/S ga và phanh, A/D lái, Space phanh tay",
+    "touch": "Điện thoại: cần gạt bên trái để đi, kéo bên phải để xoay camera, nút F để lên/xuống xe",
+    "dismiss": "Đã hiểu",
+    "dontShow": "Không hiện lại"
+  },
+  "legal": {
+    "privacyTitle": "Chính sách quyền riêng tư",
+    "termsTitle": "Điều khoản sử dụng",
+    "creditsTitle": "Ghi công",
+    "placeholder": "Nội dung tạm thời; bản chính thức sẽ được bổ sung trước khi mở công khai.",
+    "osm": "Bản đồ dựa trên dữ liệu © OpenStreetMap contributors (giấy phép ODbL)."
+  },
+  "validation": {
+    "required": "Trường này là bắt buộc",
+    "email": "Email không hợp lệ",
+    "passwordMin": "Mật khẩu cần từ 10 đến 128 ký tự",
+    "passwordCommon": "Mật khẩu quá phổ biến, hãy chọn mật khẩu khác",
+    "nameInvalid": "Tên 3 đến 32 ký tự, gồm chữ cái, chữ số, khoảng trắng, _ - .",
+    "terms": "Bạn cần đồng ý điều khoản để tiếp tục"
+  },
+  "errors": {
+    "VALIDATION_ERROR": "Dữ liệu chưa hợp lệ",
+    "UNAUTHENTICATED": "Bạn cần đăng nhập",
+    "AUTH_INVALID_CREDENTIALS": "Email hoặc mật khẩu không đúng",
+    "AUTH_EMAIL_NOT_VERIFIED": "Hãy xác minh email trước khi đăng nhập",
+    "FORBIDDEN": "Bạn không có quyền thực hiện thao tác này",
+    "AUTH_ACCOUNT_SUSPENDED": "Tài khoản đang bị khóa",
+    "CSRF_REJECTED": "Yêu cầu bị từ chối, hãy tải lại trang",
+    "NOT_FOUND": "Không tìm thấy",
+    "CONFLICT_DISPLAY_NAME_TAKEN": "Tên hiển thị này đã có người dùng",
+    "CHARACTER_ALREADY_EXISTS": "Bạn đã có nhân vật",
+    "CONFLICT": "Dữ liệu bị xung đột",
+    "CHARACTER_REQUIRED": "Bạn cần chọn nhân vật trước",
+    "ZONE_UNAVAILABLE": "Khu vực chưa mở",
+    "TOKEN_INVALID": "Liên kết không hợp lệ hoặc đã hết hạn",
+    "PAYLOAD_TOO_LARGE": "Dữ liệu quá lớn",
+    "RATE_LIMITED": "Bạn thao tác quá nhanh, hãy thử lại sau ít phút",
+    "INTERNAL_ERROR": "Có lỗi xảy ra, hãy thử lại sau",
+    "NETWORK": "Không kết nối được máy chủ"
+  }
+}

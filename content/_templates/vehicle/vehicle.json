@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "id": "__ID__",
+  "version": 1,
+  "kind": "car",
+  "model": "model.glb",
+  "thumbnail": "thumbnail.webp",
+  "nodes": {
+    "wheels": ["wheel_fl", "wheel_fr", "wheel_rl", "wheel_rr"]
+  },
+  "seats": [
+    {
+      "id": "driver",
+      "socket": "seat_driver",
+      "pose": "sit_car",
+      "hideRider": false,
+      "riderOffset": {
+        "position": [0, 0, 0],
+        "rotationY": 0
+      }
+    }
+  ],
+  "dimensions": {
+    "length": 4.2,
+    "width": 1.8,
+    "height": 1.5
+  },
+  "handling": {
+    "maxSpeed": 18,
+    "maxReverseSpeed": 4,
+    "acceleration": 4,
+    "brakeDecel": 10,
+    "drag": 0.12,
+    "wheelbase": 2.6,
+    "maxSteerDeg": 30,
+    "highSpeedSteerFactor": 0.3
+  },
+  "surfaceSpeedFactor": {
+    "road": 1,
+    "pedestrian": 0.3,
+    "ground": 0.2
+  },
+  "license": {
+    "author": "TODO",
+    "license": "CC0-1.0",
+    "sourceUrl": "TODO"
+  }
+}
