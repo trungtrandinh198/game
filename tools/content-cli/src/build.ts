@@ -16,6 +16,13 @@ import {
 import { createIO } from "./glb/inspect";
 import { discover, exists, KIND_LAYOUT, readJson, type ContentItem } from "./paths";
 import { validateContent } from "./validate";
+import {
+  checkGlbBudget,
+  checkImageBudget,
+  DEFAULT_BUDGET,
+  type BudgetLimits,
+  type BudgetViolation,
+} from "./budget";
 
 export interface CatalogEntry {
   kind: Exclude<ContentKind, "zone">;
@@ -51,12 +58,14 @@ interface OutFile {
   /** Đường dẫn tương đối trong thư mục phiên bản. */
   name: string;
   data: Uint8Array;
+  /** Triangle count for GLB files (used for budget checks). */
+  triangles?: number;
 }
 
 async function optimizeGlb(
   source: string,
   io: Awaited<ReturnType<typeof createIO>>,
-): Promise<Uint8Array> {
+): Promise<{ data: Uint8Array; triangles: number }> {
   await MeshoptEncoder.ready;
   const doc = await io.read(source);
   doc.setLogger(new Logger(Logger.Verbosity.SILENT));
@@ -65,7 +74,18 @@ async function optimizeGlb(
     prune({ keepLeaves: true }),
     meshopt({ encoder: MeshoptEncoder, level: "medium" }),
   );
-  return io.writeBinary(doc);
+  const data = await io.writeBinary(doc);
+  // Count triangles from all mesh primitives in the document.
+  let triangles = 0;
+  for (const mesh of doc.getRoot().listMeshes()) {
+    for (const prim of mesh.listPrimitives()) {
+      const idx = prim.getIndices();
+      const pos = prim.getAttribute("POSITION");
+      const count = idx ? idx.getCount() : (pos ? pos.getCount() : 0);
+      triangles += count / 3;
+    }
+  }
+  return { data, triangles: Math.round(triangles) };
 }
 
 async function toWebp(source: string, maxSize: number): Promise<Uint8Array> {
@@ -85,11 +105,12 @@ async function collect(
   switch (item.kind) {
     case "character": {
       const m = characterManifestSchema.parse(item.raw);
+      const model = await glb(m.model);
       return {
         id: m.id,
         version: m.version,
         files: [
-          { name: "model.glb", data: await glb(m.model) },
+          { name: "model.glb", data: model.data, triangles: model.triangles },
           { name: "thumbnail.webp", data: await toWebp(join(item.dir, m.thumbnail), 512) },
         ],
         roles: { model: "model.glb", thumbnail: "thumbnail.webp" },
@@ -97,23 +118,27 @@ async function collect(
     }
     case "vehicle": {
       const m = vehicleManifestSchema.parse(item.raw);
+      const model = await glb(m.model);
       const files: OutFile[] = [
-        { name: "model.glb", data: await glb(m.model) },
+        { name: "model.glb", data: model.data, triangles: model.triangles },
         { name: "thumbnail.webp", data: await toWebp(join(item.dir, m.thumbnail), 512) },
       ];
       const roles: CatalogEntry["files"] = { model: "model.glb", thumbnail: "thumbnail.webp" };
       if (m.lod1) {
-        files.push({ name: "model.lod1.glb", data: await glb(m.lod1) });
+        const lod = await glb(m.lod1);
+        files.push({ name: "model.lod1.glb", data: lod.data, triangles: lod.triangles });
         roles.lod1 = "model.lod1.glb";
       }
       return { id: m.id, version: m.version, files, roles };
     }
     case "landmark": {
       const m = landmarkManifestSchema.parse(item.raw);
-      const files: OutFile[] = [{ name: "model.glb", data: await glb(m.model) }];
+      const model = await glb(m.model);
+      const files: OutFile[] = [{ name: "model.glb", data: model.data, triangles: model.triangles }];
       const roles: CatalogEntry["files"] = { model: "model.glb", lods: [], media: [] };
       for (const [i, lod] of m.lods.entries()) {
-        files.push({ name: `lod${i + 1}.glb`, data: await glb(lod.file) });
+        const lodData = await glb(lod.file);
+        files.push({ name: `lod${i + 1}.glb`, data: lodData.data, triangles: lodData.triangles });
         roles.lods!.push(`lod${i + 1}.glb`);
       }
       const mediaPath = join(item.dir, "media", "media.json");
@@ -129,10 +154,11 @@ async function collect(
     }
     case "prop": {
       const m = propManifestSchema.parse(item.raw);
+      const model = await glb(m.model);
       return {
         id: m.id,
         version: m.version,
-        files: [{ name: "model.glb", data: await glb(m.model) }],
+        files: [{ name: "model.glb", data: model.data, triangles: model.triangles }],
         roles: { model: "model.glb" },
       };
     }
@@ -151,10 +177,25 @@ export async function buildContent(root: string, distRoot: string): Promise<Cata
   await mkdir(distRoot, { recursive: true });
   const catalog: Catalog = { schemaVersion: 1, items: [] };
 
+  const budget: BudgetLimits = {
+    maxGlbBytes: Number(process.env["CONTENT_BUDGET_GLB_BYTES"]) || DEFAULT_BUDGET.maxGlbBytes,
+    maxTriangles: Number(process.env["CONTENT_BUDGET_TRIANGLES"]) || DEFAULT_BUDGET.maxTriangles,
+    maxImageBytes: Number(process.env["CONTENT_BUDGET_IMAGE_BYTES"]) || DEFAULT_BUDGET.maxImageBytes,
+  };
+  const violations: BudgetViolation[] = [];
+
   for (const item of await discover(root)) {
     const built = await collect(item, io);
     if (!built) continue;
     const ordered = [...built.files].sort((a, b) => a.name.localeCompare(b.name));
+    // Enforce asset budget limits (CI gate).
+    for (const f of ordered) {
+      if (f.name.endsWith(".glb") && f.triangles !== undefined) {
+        violations.push(...checkGlbBudget(f.name, f.data, f.triangles, budget));
+      } else if (f.name.endsWith(".webp")) {
+        violations.push(...checkImageBudget(f.name, f.data, budget));
+      }
+    }
     const hash8 = sha(ordered.map((f) => `${f.name}:${sha(f.data)}`).join("\n")).slice(0, 8);
     const prefix = `${KIND_LAYOUT[item.kind].dir}/${built.id}/v${built.version}-${hash8}`;
     for (const f of ordered) {
@@ -185,6 +226,17 @@ export async function buildContent(root: string, distRoot: string): Promise<Cata
   if (await exists(uiDir)) {
     const hash8 = await hashDir(uiDir);
     await cp(uiDir, join(distRoot, "ui", `v${hash8}`), { recursive: true });
+  }
+
+  if (violations.length > 0) {
+    for (const v of violations) console.error(`[BUDGET] ${v.message}`);
+    throw new Error(
+      `Asset budget exceeded (${violations.length} violation(s)). ` +
+        `Limits: GLB ≤ ${budget.maxGlbBytes / 1024 / 1024} MB, ` +
+        `triangles ≤ ${budget.maxTriangles.toLocaleString()}, ` +
+        `images ≤ ${budget.maxImageBytes / 1024 / 1024} MB. ` +
+        `Override via CONTENT_BUDGET_GLB_BYTES / CONTENT_BUDGET_TRIANGLES / CONTENT_BUDGET_IMAGE_BYTES.`,
+    );
   }
 
   await writeFile(join(distRoot, "catalog.json"), `${JSON.stringify(catalog, null, 2)}\n`);

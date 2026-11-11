@@ -173,10 +173,10 @@ export function OnlineScene({
       />
       {sandbox && <StaticWorld world={sandbox} shadows={config.shadows} />}
       {runtime.streamer && <primitive object={runtime.streamer.root} />}
-      {ids.vehicles.map((id) => (
+      {ids.vehicles.slice(0, config.maxVehicles).map((id) => (
         <OnlineVehicle key={id} session={session} id={id} />
       ))}
-      {ids.players.map((p) => (
+      {ids.players.slice(0, config.maxPlayers).map((p) => (
         <AvatarView
           key={p.id}
           session={session}

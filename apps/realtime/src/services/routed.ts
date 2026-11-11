@@ -1,5 +1,5 @@
 import { SANDBOX_ZONE_CODE } from "@dnw/game-core";
-import type { PlayerDirectory, PlayerIdentity, ProgressPosition } from "./directory";
+import type { LandmarkRuntime, PlayerDirectory, PlayerIdentity, ProgressPosition } from "./directory";
 
 /** Zone sandbox dùng DevDirectory (ticket dev), mọi zone khác dùng directory thật. */
 export class RoutedDirectory implements PlayerDirectory {
@@ -34,5 +34,13 @@ export class RoutedDirectory implements PlayerDirectory {
 
   async roomClosed(roomId: string): Promise<void> {
     await this.real.roomClosed(roomId);
+  }
+
+  loadLandmarks(zoneCode: string): Promise<LandmarkRuntime[]> {
+    return this.pick(zoneCode).loadLandmarks(zoneCode);
+  }
+
+  recordDiscovery(userId: string, landmarkCode: string, zoneCode: string): Promise<boolean> {
+    return this.pick(zoneCode).recordDiscovery(userId, landmarkCode, zoneCode);
   }
 }

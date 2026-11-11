@@ -61,6 +61,7 @@ export async function createHarness(
         await t.pool.query("select 1");
         return true;
       },
+      redis: null,
     },
     { logStream: stream },
   );

@@ -45,6 +45,12 @@ class FakeDirectory implements PlayerDirectory {
   async roomClosed(roomId: string) {
     this.closed.push(roomId);
   }
+  async loadLandmarks() {
+    return [];
+  }
+  async recordDiscovery() {
+    return false;
+  }
 }
 
 let ctx: Awaited<ReturnType<typeof startTestServer>>;

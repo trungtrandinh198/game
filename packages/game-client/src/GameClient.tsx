@@ -64,8 +64,34 @@ export function GameClient(props: GameClientProps) {
   const stats = useMemo(() => new StatsCollector(), []);
   const [runtime, setRuntime] = useState<OnlineRuntime | null>(null);
   const [quality, setQuality] = useState<QualityLevel>(() => detectQuality());
+  const [paused, setPaused] = useState(false);
+  const [glLost, setGlLost] = useState(false);
   const container = useRef<HTMLDivElement>(null);
   const config = QUALITY[quality];
+
+  // Pause render loop when tab is hidden to save battery/CPU.
+  useEffect(() => {
+    const onVisibility = () => setPaused(document.hidden);
+    document.addEventListener("visibilitychange", onVisibility);
+    return () => document.removeEventListener("visibilitychange", onVisibility);
+  }, []);
+
+  // Handle WebGL context lost/restored: show overlay and attempt restore.
+  useEffect(() => {
+    const el = container.current;
+    if (!el) return;
+    const onLost = (e: Event) => {
+      e.preventDefault(); // allow browser to attempt restore
+      setGlLost(true);
+    };
+    const onRestored = () => setGlLost(false);
+    el.addEventListener("webglcontextlost", onLost, false);
+    el.addEventListener("webglcontextrestored", onRestored, false);
+    return () => {
+      el.removeEventListener("webglcontextlost", onLost);
+      el.removeEventListener("webglcontextrestored", onRestored);
+    };
+  }, []);
 
   const { sensitivity = 1, invertY = false } = props.camera ?? {};
   useEffect(() => {
@@ -221,11 +247,29 @@ export function GameClient(props: GameClientProps) {
             key={quality}
             dpr={config.dpr}
             shadows={false}
+            frameloop={paused ? "never" : "always"}
             gl={{ antialias: config.antialias, powerPreference: "high-performance" }}
             camera={{ fov: 62, near: 0.1, far: 900, position: [0, 4, 0] }}
           >
             <OnlineScene runtime={runtime} quality={quality} />
           </Canvas>
+          {glLost && (
+            <div
+              style={{
+                position: "absolute",
+                inset: 0,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                background: "rgba(0,0,0,0.7)",
+                color: "#fff",
+                fontSize: 18,
+                zIndex: 100,
+              }}
+            >
+              WebGL context lost — attempting to restore…
+            </div>
+          )}
           <OnlineHud
             runtime={runtime}
             quality={quality}

@@ -82,3 +82,37 @@ tăng <= 10% (so mức tối thiểu phần tư đầu với phần tư cuối, 
 
 Kết luận G1 (người ký): _chưa_. Nếu không đạt, giảm tải theo thứ tự: tắt bóng, giảm devicePixelRatio, giảm bán kính
 chunk, giảm số xe/người chơi được vẽ, giảm tần số patch, sức chứa room 20, đơn giản mesh nhà; rồi đo lại.
+
+## WP-15 (tối ưu hiệu năng)
+
+Các thay đổi đã implement trong T16 (cần đo lại trên thiết bị thật để điền số "trước/sau"):
+
+| Thay đổi | Mô tả | Trước | Sau | Ghi chú |
+| -------- | ----- | ----- | --- | ------- |
+| Entity render limit | Giới hạn max 15 player / 12 vehicle render trên mobile (preset `low`), 30/20 trên `medium`, 50/30 trên `high` | _chưa đo_ | _chưa đo_ | `quality.ts` → `maxPlayers`/`maxVehicles` |
+| Tab visibility pause | Dừng render loop (`frameloop="never"`) khi `document.hidden`; kết nối realtime vẫn giữ | _chưa đo_ | _chưa đo_ | Tiết kiệm pin/CPU khi user chuyển tab |
+| WebGL context lost/restored | Overlay thông báo khi mất context; tự khôi phục khi browser restore | N/A | N/A | Tránh màn hình đen không giải thích |
+| Device detection cải tiến | Dùng `navigator.hardwareConcurrency` + `deviceMemory` để chọn preset chính xác hơn | _chưa đo_ | _chưa đo_ | `detectQuality()` trong `quality.ts` |
+| CI asset budget | `content:build` fail khi GLB > 4 MB, > 50 000 tam giác, hoặc ảnh > 1 MB | N/A | N/A | Override: `CONTENT_BUDGET_GLB_BYTES`, `CONTENT_BUDGET_TRIANGLES`, `CONTENT_BUDGET_IMAGE_BYTES` |
+
+### Ngân sách asset (CI)
+
+| Loại | Giới hạn mặc định | Env override |
+| ---- | ----------------- | ------------ |
+| GLB (dung lượng) | 4 MB | `CONTENT_BUDGET_GLB_BYTES` |
+| GLB (tam giác) | 50 000 | `CONTENT_BUDGET_TRIANGLES` |
+| Ảnh WebP | 1 MB | `CONTENT_BUDGET_IMAGE_BYTES` |
+
+### Thiết bị đã đo (WP-15)
+
+| Thiết bị | Hệ điều hành | Trình duyệt | Preset | FPS TB | FPS 5% thấp | Draw call | Tam giác | Ghi chú |
+| -------- | ------------ | ----------- | ------ | ------ | ----------- | --------- | -------- | ------- |
+| _chưa đo_ | | | | | | | | Cần người đo trên thiết bị thật |
+
+### Quy trình đo WP-15
+
+1. `pnpm dev`, mở `/dev/bench?auto=1&walk=90&drive=90` trên thiết bị thật.
+2. Chạy với nội dung thật (map han-river-core, avatar, xe, địa danh).
+3. Ghi số vào bảng trên; so sánh với baseline WP-01.
+4. Kiểm tra bộ nhớ: đi/lái qua mọi chunk 3 lần, đảm bảo không tăng liên tục.
+5. Kiểm tra tab visibility: chuyển tab sang chỗ khác 30 s, quay lại — render phải resume ngay.

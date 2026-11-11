@@ -16,6 +16,7 @@ export async function generateOpenApi(): Promise<string> {
     mailer: new MemoryMailer(),
     rateStore: new MemoryRateLimitStore(),
     pingDb: async () => true,
+    redis: null,
   });
   await app.ready();
   const doc = app.swagger();

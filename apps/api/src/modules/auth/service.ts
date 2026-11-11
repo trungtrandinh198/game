@@ -5,6 +5,7 @@ import type { AppContext } from "../../context";
 import { AppError, Errors } from "../../errors";
 import { renderEmail, type EmailKind } from "../../lib/email-templates";
 import { loadAuthorities } from "../../lib/permissions";
+import { checkSuspendExpiry } from "../../lib/suspend-expiry";
 import { hashIp, randomToken, sha256Hex } from "../../lib/tokens";
 import * as repo from "./repo";
 
@@ -141,7 +142,9 @@ export async function login(
     : (await verifyPassword(await timingHash(), input.password), false);
   if (!user || !ok) throw Errors.invalidCredentials();
 
-  if (user.status === "suspended" || user.status === "banned") throw Errors.suspended();
+  const effectiveStatus =
+    user.status === "suspended" ? await checkSuspendExpiry(ctx.db, user.id) : user.status;
+  if (effectiveStatus === "suspended" || effectiveStatus === "banned") throw Errors.suspended();
   if (ctx.config.REQUIRE_EMAIL_VERIFICATION && !user.emailVerifiedAt)
     throw Errors.emailNotVerified();
 

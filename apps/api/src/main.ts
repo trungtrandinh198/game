@@ -1,9 +1,11 @@
 import { createDb, createPool, loadEnv } from "@dnw/db";
+import { BLOCKED_NAME_TERMS } from "@dnw/schemas";
 import { Redis } from "ioredis";
 import { buildApp } from "./app";
 import { loadConfig } from "./config";
 import type { AppContext } from "./context";
 import { createSmtpMailer, MemoryMailer } from "./lib/mailer";
+import { setBlockedNameTerms } from "./lib/name-policy";
 import { MemoryRateLimitStore, RedisRateLimitStore } from "./lib/rate-limit-store";
 
 loadEnv();
@@ -14,6 +16,8 @@ const redis = config.REDIS_URL
   ? new Redis(config.REDIS_URL, { maxRetriesPerRequest: 2, lazyConnect: false })
   : null;
 redis?.on("error", () => undefined);
+
+setBlockedNameTerms(BLOCKED_NAME_TERMS);
 
 const ctx: AppContext = {
   config,
@@ -26,6 +30,7 @@ const ctx: AppContext = {
     await pool.query("select 1");
     return true;
   },
+  redis,
 };
 
 if (!redis)

@@ -1,13 +1,16 @@
 import type { JoinResponse } from "@dnw/schemas";
 import type { AppContext, AuthContext } from "../../context";
 import { AppError, Errors } from "../../errors";
+import { checkSuspendExpiry } from "../../lib/suspend-expiry";
 import { DEV_TICKET_SECRET, signJoinTicket } from "../../lib/ticket";
 import { hasCharacter } from "../auth/repo";
 import * as repo from "./repo";
 
 /** `POST /world/join` (mục 9.8): điều kiện vào thế giới rồi cấp ticket 60 giây cho realtime. */
 export async function join(ctx: AppContext, auth: AuthContext, zoneCode: string): Promise<JoinResponse> {
-  if (auth.status === "suspended" || auth.status === "banned") throw Errors.suspended();
+  const effectiveStatus =
+    auth.status === "suspended" ? await checkSuspendExpiry(ctx.db, auth.userId) : auth.status;
+  if (effectiveStatus === "suspended" || effectiveStatus === "banned") throw Errors.suspended();
   if (auth.status !== "active" || (ctx.config.REQUIRE_EMAIL_VERIFICATION && !auth.emailVerified)) {
     throw Errors.emailNotVerified();
   }

@@ -82,7 +82,7 @@ export function createGameServer(
     }
   });
 
-  setRoomDeps({ config, metrics, zones, directory, presence, localClients });
+  setRoomDeps({ config, metrics, zones: zones!, directory: directory!, presence, localClients });
 
   const transport = new WebSocketTransport({
     maxPayload: MAX_PAYLOAD_BYTES,

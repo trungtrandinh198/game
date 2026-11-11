@@ -2,7 +2,9 @@ import { ServerError } from "@colyseus/core";
 import {
   avatars,
   gameRooms,
+  landmarks,
   playerCharacters,
+  playerDiscoveries,
   playerProgress,
   userProfiles,
   users,
@@ -22,6 +24,14 @@ export interface ProgressPosition {
   z: number;
 }
 
+/** Thông tin landmark dùng cho discover (chỉ trường cần thiết, không chứa nội dung). */
+export interface LandmarkRuntime {
+  code: string;
+  localX: number;
+  localZ: number;
+  interactionRadiusM: number;
+}
+
 /** Truy cập dữ liệu người chơi và room (role `dnw_realtime`); tên/avatar/trạng thái luôn lấy từ DB. */
 export interface PlayerDirectory {
   /** Ném ServerError nếu tài khoản không được vào (khóa/ban, chưa có nhân vật). */
@@ -31,6 +41,10 @@ export interface PlayerDirectory {
   roomOpened(zoneCode: string, roomId: string, capacity: number): Promise<void>;
   roomPeak(roomId: string, peakPlayers: number): Promise<void>;
   roomClosed(roomId: string): Promise<void>;
+  /** Danh sách landmark đã publish trong zone (cho discover). */
+  loadLandmarks(zoneCode: string): Promise<LandmarkRuntime[]>;
+  /** Ghi phát hiện landmark; trả true nếu là lần đầu (chưa có bản ghi). */
+  recordDiscovery(userId: string, landmarkCode: string, zoneCode: string): Promise<boolean>;
 }
 
 /** Ticket dev tự khai tên/avatar; không có lưu trữ. Chỉ dùng cho zone sandbox ngoài production. */
@@ -45,6 +59,12 @@ export class DevDirectory implements PlayerDirectory {
   async roomOpened() {}
   async roomPeak() {}
   async roomClosed() {}
+  async loadLandmarks() {
+    return [];
+  }
+  async recordDiscovery() {
+    return false;
+  }
 }
 
 export class DbDirectory implements PlayerDirectory {
@@ -103,5 +123,41 @@ export class DbDirectory implements PlayerDirectory {
 
   async roomClosed(roomId: string) {
     await this.db.update(gameRooms).set({ status: "closed", closedAt: new Date() }).where(eq(gameRooms.roomCode, roomId));
+  }
+
+  async loadLandmarks(zoneCode: string): Promise<LandmarkRuntime[]> {
+    const rows = await this.db
+      .select({
+        code: landmarks.code,
+        localX: landmarks.localX,
+        localZ: landmarks.localZ,
+        interactionRadiusM: landmarks.interactionRadiusM,
+      })
+      .from(landmarks)
+      .innerJoin(worldZones, eq(worldZones.id, landmarks.zoneId))
+      .where(and(eq(worldZones.code, zoneCode), eq(landmarks.status, "published"), sql`${landmarks.deletedAt} IS NULL`));
+    return rows;
+  }
+
+  async recordDiscovery(userId: string, landmarkCode: string, zoneCode: string): Promise<boolean> {
+    const [landmark] = await this.db
+      .select({ id: landmarks.id })
+      .from(landmarks)
+      .innerJoin(worldZones, eq(worldZones.id, landmarks.zoneId))
+      .where(
+        and(
+          eq(landmarks.code, landmarkCode),
+          eq(worldZones.code, zoneCode),
+          eq(landmarks.status, "published"),
+          sql`${landmarks.deletedAt} IS NULL`,
+        ),
+      );
+    if (!landmark) return false;
+    const result = await this.db
+      .insert(playerDiscoveries)
+      .values({ userId, landmarkId: landmark.id })
+      .onConflictDoNothing({ target: [playerDiscoveries.userId, playerDiscoveries.landmarkId] })
+      .returning({ id: playerDiscoveries.id });
+    return result.length > 0;
   }
 }

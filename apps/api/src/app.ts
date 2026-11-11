@@ -17,6 +17,11 @@ import { authRoutes } from "./modules/auth/routes";
 import { avatarRoutes } from "./modules/avatars/routes";
 import { playerRoutes } from "./modules/player/routes";
 import { worldRoutes } from "./modules/world/routes";
+import { vehicleRoutes } from "./modules/vehicles/routes";
+import { landmarkRoutes } from "./modules/landmarks/routes";
+import { adminRoutes } from "./modules/admin/routes";
+import { reportRoutes } from "./modules/reports/routes";
+import { moderationRoutes } from "./modules/moderation/routes";
 import { devMailboxRoutes } from "./modules/dev/routes";
 import { MemoryMailer } from "./lib/mailer";
 import { systemRoutes } from "./modules/system/routes";
@@ -88,6 +93,11 @@ export async function buildApp(
   await app.register(playerRoutes, { prefix: API_PREFIX });
   await app.register(avatarRoutes, { prefix: API_PREFIX });
   await app.register(worldRoutes, { prefix: API_PREFIX });
+  await app.register(vehicleRoutes, { prefix: API_PREFIX });
+  await app.register(landmarkRoutes, { prefix: API_PREFIX });
+  await app.register(adminRoutes, { prefix: API_PREFIX });
+  await app.register(reportRoutes, { prefix: API_PREFIX });
+  await app.register(moderationRoutes, { prefix: API_PREFIX });
   if (ctx.mailer instanceof MemoryMailer && ctx.config.NODE_ENV !== "production") {
     await app.register(devMailboxRoutes, { mailer: ctx.mailer });
   }

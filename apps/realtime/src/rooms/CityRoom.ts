@@ -32,10 +32,12 @@ import {
   CityState,
   PlayerState,
   VehicleState,
+  discoverMessageSchema,
   driveMessageSchema,
   inputMessageSchema,
   joinOptionsSchema,
   mountMessageSchema,
+  type DiscoverMessage,
   type DriveMessage,
   type InputMessage,
   type NoticeCode,
@@ -43,7 +45,7 @@ import {
 import type { z } from "zod";
 import type { RealtimeConfig } from "../config";
 import type { Metrics } from "../metrics";
-import type { PlayerDirectory } from "../services/directory";
+import type { LandmarkRuntime, PlayerDirectory } from "../services/directory";
 import type { Presence } from "../services/presence";
 import { RateLimiter, ViolationCounter } from "../services/rateLimit";
 import { TicketError, verifyTicket } from "../services/ticket";
@@ -84,6 +86,9 @@ interface AuthData {
 }
 
 const PROGRESS_SAVE_INTERVAL_MS = 60_000;
+const LANDMARK_REFRESH_INTERVAL_MS = 5 * 60_000;
+/** Chênh lệch cho phép so với bán kính tương tác khi discover (mục 8.10). */
+const DISCOVER_RADIUS_TOLERANCE_M = 2;
 
 interface VehicleRuntime {
   id: string;
@@ -126,6 +131,7 @@ export class CityRoom extends Room {
 
   private readonly players = new Map<string, PlayerRuntime>();
   private readonly vehicles = new Map<string, VehicleRuntime>();
+  private readonly landmarks = new Map<string, LandmarkRuntime>();
   private accumulator = 0;
   private joinCounter = 0;
   private world!: ZoneRuntime["world"];
@@ -136,6 +142,7 @@ export class CityRoom extends Room {
     input: this.guard(inputMessageSchema, (rt, msg: InputMessage) => this.onInput(rt, msg)),
     drive: this.guard(driveMessageSchema, (rt, msg: DriveMessage) => this.onDrive(rt, msg)),
     mount: this.guard(mountMessageSchema, (rt, msg) => this.onMount(rt, msg.vehicleId)),
+    discover: this.guard(discoverMessageSchema, (rt, msg: DiscoverMessage) => this.onDiscover(rt, msg)),
     dismount: (client: Client) => {
       const rt = this.players.get(client.sessionId);
       if (rt && this.admit(rt)) this.onDismount(rt);
@@ -188,6 +195,8 @@ export class CityRoom extends Room {
     metrics.vehicles.inc(this.vehicles.size);
     this.setTimestep((deltaMs: number) => this.onTick(deltaMs), TICK_DT * 1000);
     this.clock.setInterval(() => this.saveAllProgress(), PROGRESS_SAVE_INTERVAL_MS);
+    this.clock.setInterval(() => this.refreshLandmarks(), LANDMARK_REFRESH_INTERVAL_MS);
+    await this.refreshLandmarks();
     await directory.roomOpened(zone.code, this.roomId, config.roomCapacity).catch(() => undefined);
   }
 
@@ -440,6 +449,34 @@ export class CityRoom extends Room {
         .saveProgress(rt.userId, this.zone.code, { x: rt.sim.x, z: rt.sim.z })
         .catch(() => undefined);
     }
+  }
+
+  /** Nạp lại danh sách landmark đã publish của zone (mỗi 5 phút, mục 8.10). */
+  private async refreshLandmarks(): Promise<void> {
+    const { directory } = getDeps();
+    try {
+      const rows = await directory.loadLandmarks(this.zone.code);
+      this.landmarks.clear();
+      for (const row of rows) this.landmarks.set(row.code, row);
+    } catch {
+      // Giữ danh sách cũ nếu DB lỗi; discover sẽ từ chối nếu không có landmark.
+    }
+  }
+
+  /** Khám phá landmark: phải trong bán kính tương tác + 2 m (dùng vị trí xe nếu đang lái). */
+  private onDiscover(rt: PlayerRuntime, msg: DiscoverMessage): void {
+    const landmark = this.landmarks.get(msg.landmarkCode);
+    if (!landmark) return;
+    const at = rt.vehicle ? { x: rt.vehicle.sim.x, z: rt.vehicle.sim.z } : rt.sim;
+    const dist = Math.hypot(at.x - landmark.localX, at.z - landmark.localZ);
+    if (dist > landmark.interactionRadiusM + DISCOVER_RADIUS_TOLERANCE_M) return;
+    const { directory } = getDeps();
+    void directory
+      .recordDiscovery(rt.userId, msg.landmarkCode, this.zone.code)
+      .then((discovered) => {
+        if (!rt.closing) rt.client.send("discovered", { landmarkCode: msg.landmarkCode, discovered });
+      })
+      .catch(() => undefined);
   }
 
   /** Khôi phục vị trí cũ nếu hợp lệ (trong biên, không trong vật cản), không thì chọn điểm spawn lệch ≤ 1 m (mục 8.10). */
